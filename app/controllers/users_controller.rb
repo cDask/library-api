@@ -3,7 +3,12 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:update]
 
   def show
-    render json: current_user, status: :ok
+    render json: {
+      email: current_user.email,
+      id: current_user.id,
+      borrows: current_user.borrows.includes(:book),
+      books: current_user.books
+    }, status: :ok
   end
 
   def create
