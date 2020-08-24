@@ -3,7 +3,13 @@ class BooksController < ApplicationController
 
   def index
     books = Book.all
-    render json: { books: books }, status: :ok
+    if params[:titleSearch]
+      books = books.select do |book| 
+        book.title.downcase.include?(params[:titleSearch].downcase)
+      end
+      pp books
+    end
+    render json: books, status: :ok
   end
 
   def show
@@ -33,7 +39,6 @@ class BooksController < ApplicationController
     @item.destroy
     render json: {}, status: :no_content
   end
-
 
   private
 
