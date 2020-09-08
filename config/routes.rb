@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   post '/sign-up', to: 'users#create'
   get '/user', to: 'users#show'
   resources :books
+  resources :borrows, only: %i[create destroy update index]
 end
